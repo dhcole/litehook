@@ -1,11 +1,11 @@
 # hook.rb
 
-require 'rubygems'
 require 'sinatra'
 require 'json'
 
 get "*" do
     ""
+    puts "get request"
 end
 
 post "/api" do
@@ -14,5 +14,6 @@ post "/api" do
   sha = data['after']
   repos = data['repository']['name']
   user = data['repository']['owner']['name']
-  `./run.sh #{user} #{repos} #{sha} &> out.txt`
+  puts "post request ./run.sh #{user} #{repos} #{sha}"
+  `./run.sh #{user} #{repos} #{sha}`
 end
