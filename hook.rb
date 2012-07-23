@@ -1,4 +1,6 @@
 # hook.rb
+
+require 'rubygems'
 require 'sinatra'
 require 'json'
 
