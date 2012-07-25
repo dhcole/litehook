@@ -17,5 +17,5 @@ post "/api" do
   user = data['repository']['owner']['name']
   email = data['commits'][-1]['author']['email']
   puts "post request ./run.sh #{user} #{repos} #{sha} #{email}"
-  `./run.sh #{user} #{repos} #{sha}`
+  `./run.sh #{user} #{repos} #{sha} #{email}`
 end
