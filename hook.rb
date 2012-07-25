@@ -15,6 +15,7 @@ post "/api" do
   sha = data['after']
   repos = data['repository']['name']
   user = data['repository']['owner']['name']
-  puts "post request ./run.sh #{user} #{repos} #{sha}"
+  email = data['commits'][-1]['author']['email']
+  puts "post request ./run.sh #{user} #{repos} #{sha} #{email}"
   `./run.sh #{user} #{repos} #{sha}`
 end
