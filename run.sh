@@ -43,15 +43,19 @@ fi
 # 4. Sync to s3
 
 if [ -f "_repos/$USER.$REPOS/CNAME" ]; then
-    BUCKET = `cat _repos/$USER.$REPOS/CNAME`
+    BUCKET="`cat _repos/$USER.$REPOS/CNAME`.dhcole.com"
+    PREFIX=""
 else
-    BUCKET = $USER.dhcole.com/$REPOS
+    BUCKET="$USER.dhcole.com"
+    PREFIX="$REPOS/"
 fi
+
+echo "bucket: $BUCKET \nprefix: $PREFIX"
 
 # TODO: read CNAME, use that as bucket name, if *.github.com, use root, don't delete other repos; if errors, dont create new bucket (obviated by CNAME); don't create bucket if clone failed.
 
-s3cmd mb "s3://$USER.dhcole.com"
-s3cmd sync --delete-removed --exclude ".git/*" --exclude ".gitignore" "_sites/$USER.$REPOS/" "s3://$BUCKET/"
+s3cmd mb "s3://$BUCKET"
+s3cmd sync --delete-removed --exclude ".git/*" --exclude ".gitignore" "_sites/$USER.$REPOS/" "s3://$BUCKET/$PREFIX"
 
 # Send mail
 sendmail $EMAIL "to: $EMAIL\nfrom: no-reply@dhcole.com\nsubject: Successfully built your site\n\nView it here: http://$USER.dhcole.com/$REPOS/\n\n"
