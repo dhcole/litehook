@@ -2,8 +2,8 @@
 set -e 
 
 # Checkout specific SHA from git, run jekyll, sync to s3
-# TODO: handle branches, handle simultaneous runs
-# usage `run.sh user repos sha`
+# TODO: automatically configure bucket policy and website
+# usage `run.sh user repos sha email`
 
 USER=$1
 REPOS=$2
@@ -51,8 +51,6 @@ else
 fi
 
 echo "bucket: $BUCKET \nprefix: $PREFIX"
-
-# TODO: read CNAME, use that as bucket name, if *.github.com, use root, don't delete other repos; if errors, dont create new bucket (obviated by CNAME); don't create bucket if clone failed.
 
 s3cmd mb "s3://$BUCKET"
 s3cmd sync --delete-removed --exclude ".git/*" --exclude ".gitignore" "_sites/$USER.$REPOS/" "s3://$BUCKET/$PREFIX"
