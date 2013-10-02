@@ -31,11 +31,3 @@
 	]
 }
 ```
-
-## Try it
-
-- Add `ds-static` github user as a contributer to your repos. He's in the `mapbox/static-deployer` team too.
-- Add this as a web hook to your repos: `http://ec2-50-17-32-7.compute-1.amazonaws.com:8080/api`
-
-- Your site will be built as `http://[user].dhcole.com/[repos]/` or `http://[cname].dhcole.com/`
-
